@@ -4,24 +4,13 @@ import time
 import threading
 import sys
 
-PORT = 5050
+
 HEADER = 1024
 SERVER = '127.0.0.1'
 ADDR = (SERVER, PORT)
+DISCONNECT_MESSAGE = "!DISCONNECTED"
+port =5050
 FORMAT = "utf-8"
-DISCONNECT_MESSAGE = "!DISCONNECT"
-
-
-def connect():
-    try:
-        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client.connect(ADDR)
-        print(f"Connected to server at {ADDR}")
-        return client
-    except Exception as e:
-        print(f"[ERROR] Could not connect to server: {e}")
-        return None
-
 
 def send(client, msg):
     try:
@@ -45,6 +34,20 @@ def receive(client):
                 break
         except Exception:
             break
+
+
+
+def connect():
+    try:
+        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client.connect(ADDR)
+        print(f"Connected to server at {ADDR}")
+        return client
+    except Exception as e:
+        print(f"[ERROR] Could not connect to server: {e}")
+        return None
+
+
 
 
 def send_username(client, username):
